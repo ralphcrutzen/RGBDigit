@@ -75,17 +75,17 @@ Set the color of *digit* to color rgb(*red*,*green*,*blue*).
 
 Set the time and date.
 
-###```int getHour();
+###```int getHour();```
 
-###int getMinute();
+###```int getMinute();```
 
-###int getSecond();
+###```int getSecond();```
 
-###int getDay();
+###```int getDay();```
 
-###int getMonth();
+###```int getMonth();```
 
-###int getYear();```
+###```int getYear();```
 
 Hopefully speak for themselves...
 
