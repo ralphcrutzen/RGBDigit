@@ -12,6 +12,8 @@ You also have to download and install the following libraries:
 * DS3232RTC http://github.com/JChristensen/DS3232RTC
 * Time http://www.arduino.cc/playground/Code/Time
 
+Use the sketch in the Examples directory to test the library!
+
 ## Class methods
     void clearAll();
 Clear all digits.
