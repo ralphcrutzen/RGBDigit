@@ -31,56 +31,61 @@ The *segment* parameters can be values from 0 to 7, every number corresponding t
     4     2
        3      7
 
-```void clearAll();```
+###```void clearAll();```
 
 Clear all digits.
 
-```void setDigit(int character, int digit, byte red, byte green, byte blue);```
+###```void setDigit(int character, int digit, byte red, byte green, byte blue);```
 
 Show *character* on *digit* in color rgb(*red*,*green*,*blue*).
 
-```void clearDigit(int digit);```
+###```void clearDigit(int digit);```
 
 Clear *digit*.
 
-```void showDot(int digit, byte red, byte green, byte blue);```
+###```void showDot(int digit, byte red, byte green, byte blue);```
 
 Show dot on *digit* in color rgb(*red*,*green*,*blue*). 
 
-```void clearDot(int digit);```
+###```void clearDot(int digit);```
 
 Clear dot on *digit*. .
 
-```void segmentOn(int digit, byte segment, byte red, byte green, byte blue);```
+###```void segmentOn(int digit, byte segment, byte red, byte green, byte blue);```
 
 Show *segment* on *digit* in color rgb(*red*,*green*,*blue*). 
 
-```void segmentOff(int digit, byte segment);```
+###```void segmentOff(int digit, byte segment);```
 
 Clear *segment* on *digit*.
 
-```bool isSegmentOn(int digit, byte segment);```
+###```bool isSegmentOn(int digit, byte segment);```
 
 Returns True if *segment* on *digit* is on. Otherwise, returns False.
 
-```void setColor(byte red, byte green, byte blue);```
+###```void setColor(byte red, byte green, byte blue);```
 
 Set the color of all digits to color rgb(*red*,*green*,*blue*).
 
-```void setColor(int digit, byte red, byte green, byte blue);```
+###```void setColor(int digit, byte red, byte green, byte blue);```
 
 Set the color of *digit* to color rgb(*red*,*green*,*blue*).
 
-```void setTimeDate(int hour, int minute, int second, int day, int month, int year);```
+###```void setTimeDate(int hour, int minute, int second, int day, int month, int year);```
 
 Set the time and date.
 
-```int getHour();
-int getMinute();
-int getSecond();
-int getDay();
-int getMonth();
-int getYear();```
+###```int getHour();
+
+###int getMinute();
+
+###int getSecond();
+
+###int getDay();
+
+###int getMonth();
+
+###int getYear();```
 
 Hopefully speak for themselves...
 
