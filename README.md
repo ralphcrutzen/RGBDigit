@@ -10,7 +10,7 @@ Because I only own a RGBDigit shield without a temparature sensor, I'm not plann
 ## Installation instructions
 * Download the zip file
 * Extract it to your Arduino library folder
-* Rename the RGBDigit-Master folder to RGBDigit
+* Rename the RGBDigit-master folder to RGBDigit
  
 You also have to download and install the following libraries:
 * Adafruit NeoPixel https://github.com/adafruit/Adafruit_NeoPixel
