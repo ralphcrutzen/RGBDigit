@@ -56,7 +56,7 @@ void RGBDigit::clearAll()
   show();
 }
 
-void RGBDigit::digitOn(int character, int digit, byte red, byte green, byte blue)
+void RGBDigit::setDigit(int character, int digit, byte red, byte green, byte blue)
 {
   for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
     if (_characte_rArray[segm%8][character]) {
@@ -74,7 +74,7 @@ void RGBDigit::digitOn(int character, int digit, byte red, byte green, byte blue
   show();
 }
 
-void RGBDigit::digitOff(int digit)
+void RGBDigit::clearDigit(int digit)
 {
   for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
     _rArray[segm] = 0;
@@ -82,6 +82,18 @@ void RGBDigit::digitOff(int digit)
     _bArray[segm] = 0;
     setPixelColor(segm, 0, 0, 0);
   }
+  show();
+}
+
+void RGBDigit::showDot(int digit, byte red, byte green, byte blue)
+{
+  setPixelColor(8*digit + 7, red, green, blue);
+  show();
+}
+
+void RGBDigit::clearDot(int digit)
+{
+  setPixelColor(8*digit + 7, 0, 0, 0);
   show();
 }
 

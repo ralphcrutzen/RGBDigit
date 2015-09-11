@@ -19,8 +19,10 @@ class RGBDigit : public Adafruit_NeoPixel {
     RGBDigit(int nDigits);
     ~RGBDigit();
     void clearAll();
-    void digitOn(int character, int digit, byte red, byte green, byte blue);
-    void digitOff(int digit);
+    void setDigit(int character, int digit, byte red, byte green, byte blue);
+    void clearDigit(int digit);
+    void showDot(int digit, byte red, byte green, byte blue);
+    void clearDot(int digit);
     void segmentOn(int digit, byte segment, byte red, byte green, byte blue);
     void segmentOff(int digit, byte segment);
     bool isSegmentOn(int digit, byte segment);
