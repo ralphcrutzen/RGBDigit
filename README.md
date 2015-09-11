@@ -1,7 +1,7 @@
 # RGBDigit
 Arduino library for http://rgbdigit.com/
 
-The purpose of this library is to provide a simple interface to programming an RGBDigit.
+The purpose of this library is to provide a *simple* and *intuitive* interface to programming an RGBDigit.
 
 Note that it is a work in progress. Not all functionality (like the infrared remote or reading temerature values) is covered yet.
 
@@ -21,52 +21,68 @@ You also have to download and install the following libraries:
 Use the sketch in the Examples directory to test the library!
 
 ## Class methods
-    void clearAll();
-Clear all digits.
+Note that for all *digit* parameters, the first digit has index 0, the second digit has index 1, etc.
 
-    void setDigit(int character, int digit, byte red, byte green, byte blue);
-Show number "character" on digit "digit" in color rgb(red,green,blue). Note that the first digit has index 0, the second digit has index 1, etc.
-
-    void clearDigit(int digit);
-Clear digit "digit".
-
-    void showDot(int digit, byte red, byte green, byte blue);
-Show dot on digit "digit" in color rgb(red,green,blue).
-
-    void clearDot(int digit);
-Clear dot on digit "digit".
-
-    void segmentOn(int digit, byte segment, byte red, byte green, byte blue);
-Show segment "segment" (see below) on digit "digit" in color rgb(red,green,blue).
+The *segment* parameters can be values from 0 to 7, every number corresponding to the following position:
 
        0
     5     1
        6
     4     2
-       3
+       3      7
 
-    void segmentOff(int digit, byte segment);
-Clear segment "segment" on digit "digit".
+```void clearAll();```
 
-    bool isSegmentOn(int digit, byte segment);
-Returns True if segment "segment" on digit "digit" is on.
-Otherwise, returns False.
+Clear all digits.
 
-    void setColor(byte red, byte green, byte blue);
-Set the color of all digits to rgb(red,green,blue).
+```void setDigit(int character, int digit, byte red, byte green, byte blue);```
 
-    void setColor(int digit, byte red, byte green, byte blue);
-Set the color of digit "digit" to rgb(red,green,blue).
+Show *character* on *digit* in color rgb(*red*,*green*,*blue*).
 
-    void setTimeDate(int hour, int minute, int second, int day, int month, int year);
+```void clearDigit(int digit);```
+
+Clear *digit*.
+
+```void showDot(int digit, byte red, byte green, byte blue);```
+
+Show dot on *digit* in color rgb(*red*,*green*,*blue*). 
+
+```void clearDot(int digit);```
+
+Clear dot on *digit*. .
+
+```void segmentOn(int digit, byte segment, byte red, byte green, byte blue);```
+
+Show *segment* on *digit* in color rgb(*red*,*green*,*blue*). 
+
+```void segmentOff(int digit, byte segment);```
+
+Clear *segment* on *digit*.
+
+```bool isSegmentOn(int digit, byte segment);```
+
+Returns True if *segment* on *digit* is on. Otherwise, returns False.
+
+```void setColor(byte red, byte green, byte blue);```
+
+Set the color of all digits to color rgb(*red*,*green*,*blue*).
+
+```void setColor(int digit, byte red, byte green, byte blue);```
+
+Set the color of *digit* to color rgb(*red*,*green*,*blue*).
+
+```void setTimeDate(int hour, int minute, int second, int day, int month, int year);```
+
 Set the time and date.
 
-    int getHour();
-    int getMinute();
-    int getSecond();
-    int getDay();
-    int getMonth();
-    int getYear();
+```int getHour();
+int getMinute();
+int getSecond();
+int getDay();
+int getMonth();
+int getYear();```
+
+Hopefully speak for themselves...
 
 ## To do:
 * Add infrared remote functionality
