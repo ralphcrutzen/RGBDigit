@@ -63,3 +63,4 @@ Set the time and date.
 ## To do:
 * Add infrared remote functionality
 * Add alarm functionality
+* ...
