@@ -12,7 +12,7 @@
 #include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
 #include <IRremote.h> //http://z3t0.github.io/Arduino-IRremote/
 #include <DS3232RTC.h> //http://github.com/JChristensen/DS3232RTC
-#include <Time.h> //http://www.arduino.cc/playground/Code/Time
+#include <Time.h> //https://github.com/PaulStoffregen/Time
 
 class RGBDigit : public Adafruit_NeoPixel {
   public:
