@@ -18,6 +18,7 @@ class RGBDigit : public Adafruit_NeoPixel {
   public:
     RGBDigit(int nDigits);
     ~RGBDigit();
+    void begin();
     void clearAll();
     void setDigit(int character, int digit, byte red, byte green, byte blue);
     void clearDigit(int digit);
@@ -35,10 +36,24 @@ class RGBDigit : public Adafruit_NeoPixel {
     int getDay();
     int getMonth();
     int getYear();
+    unsigned long readIR();
+    void resumeIR();
+    static const unsigned long irPower = 0x10EFD827;
+    static const unsigned long irA = 0x10EFF807;
+    static const unsigned long irB = 0x10EF7887;
+    static const unsigned long irC = 0x10EF58A7;
+    static const unsigned long irUp = 0x10EFA05F;
+    static const unsigned long irDown = 0x10EF00FF;
+    static const unsigned long irLeft = 0x10EF10EF;
+    static const unsigned long irRight = 0x10EF807F;
+    static const unsigned long irSelect = 0x10EF20DF;
+    static const unsigned long irNone = 0;
+    unsigned long button = 0;
   private:
     int _nDigits;
-    IRrecv* _ir;
-    const bool _characte_rArray [8][13] =
+    IRrecv _irRecv;
+    decode_results _irResults;
+    const bool _characterArray [8][13] =
       {//0  1  2  3  4  5  6  7  8  9  c  - off
         {1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0}, //a             a
         {1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0}, //b          f     b

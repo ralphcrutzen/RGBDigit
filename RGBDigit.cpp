@@ -6,43 +6,39 @@
 
 #include "RGBDigit.h"
 
-#define POWER 0x10EFD827
-#define P 0x10EFD827
-#define A 0x10EFF807
-#define B 0x10EF7887
-#define C 0x10EF58A7
-#define UP 0x10EFA05F
-#define DOWN 0x10EF00FF
-#define LEFT 0x10EF10EF
-#define RIGHT 0x10EF807F
-#define SELECT 0x10EF20DF
-
-
 RGBDigit::RGBDigit(int nDigits)
   : Adafruit_NeoPixel(8 * nDigits, 12, NEO_GRB + NEO_KHZ800),
-  _nDigits(nDigits)
+  _nDigits(nDigits), _irRecv(10)
 {
-  // init IR reveiver
-  _ir = new IRrecv(10);
-  _ir->enableIRIn(); // Start the receiver
-
-  //init RTC
-  setSyncProvider(RTC.get);
-
   _rArray = new byte[8 * nDigits]; // to store red values of each LED
   _gArray = new byte[8 * nDigits]; // to store green values of each LED
   _bArray = new byte[8 * nDigits]; // to store blue values of each LED
 
-  // init led strip
-  Adafruit_NeoPixel::begin();
+  //_irRecv = new IRrecv(10);
+  //_irResults = new decode_results;
 }
 
 RGBDigit::~RGBDigit()
 {
-  delete _ir;
+  //delete _irRecv;
+  //delete _irResults;
   delete [] _rArray;
   delete [] _gArray;
   delete [] _bArray;
+}
+
+void RGBDigit::begin()
+{
+  Wire.begin();
+
+  // init IR reveiver
+  _irRecv.enableIRIn();
+
+  //init RTC
+  setSyncProvider(RTC.get);
+
+  // init led strip
+  Adafruit_NeoPixel::begin();
 }
 
 void RGBDigit::clearAll()
@@ -59,7 +55,7 @@ void RGBDigit::clearAll()
 void RGBDigit::setDigit(int character, int digit, byte red, byte green, byte blue)
 {
   for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
-    if (_characte_rArray[segm%8][character]) {
+    if (_characterArray[segm%8][character]) {
       _rArray[segm] = red;
       _gArray[segm] = green;
       _bArray[segm] = blue;
@@ -126,21 +122,27 @@ bool RGBDigit::isSegmentOn(int digit, byte segment)
 void RGBDigit::setColor(byte red, byte green, byte blue)
 {
   for (int segm = 0; segm < 8*_nDigits; segm++) {
-    if (_rArray[segm] != 0) _rArray[segm] = red;
-    if (_gArray[segm] != 0) _gArray[segm] = green;
-    if (_bArray[segm] != 0) _bArray[segm] = blue;
-    setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
+    if ((segm - 7) % 8 != 0) { // exclude dots
+      if ((_rArray[segm] != 0) || (_gArray[segm] != 0) || (_bArray[segm] != 0)) {
+        _rArray[segm] = red;
+        _gArray[segm] = green;
+        _bArray[segm] = blue;
+        setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
+      }
+    }
   }
   show();
 }
 
 void RGBDigit::setColor(int digit, byte red, byte green, byte blue)
 {
-  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
-    if (_rArray[segm] != 0) _rArray[segm] = red;
-    if (_gArray[segm] != 0) _gArray[segm] = green;
-    if (_bArray[segm] != 0) _bArray[segm] = blue;
-    setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
+  for (int segm = 8*digit; segm < 8*digit + 7; segm++) {
+    if ((_rArray[segm] != 0) || (_gArray[segm] != 0) || (_bArray[segm] != 0)) {
+      _rArray[segm] = red;
+      _gArray[segm] = green;
+      _bArray[segm] = blue;
+      setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
+    }
   }
   show();
 }
@@ -179,4 +181,15 @@ int RGBDigit::getMonth()
 int RGBDigit::getYear()
 {
   return year();
+}
+
+unsigned long RGBDigit::readIR()
+{
+  if (_irRecv.decode(&_irResults)) {
+    delay(250);
+    _irRecv.resume();
+    return _irResults.value;
+  }
+  else
+    return irNone;
 }
