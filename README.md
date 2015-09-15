@@ -89,7 +89,21 @@ Set the time and date.
 
 Hopefully speak for themselves...
 
+#####```unsigned long readIR();```
+
+Returns one of the following (static) values if the button of the remote is pressed, or ```RGBDigit::irNone``` if no button is pressed.
+
+    RGBDigit::irPower
+    RGBDigit::irA
+    RGBDigit::irB
+    RGBDigit::irC
+    RGBDigit::irUp
+    RGBDigit::irDown
+    RGBDigit::irLeft
+    RGBDigit::irRight
+    RGBDigit::irSelect
+
 ## To do:
-* Add infrared remote functionality
+* Add temperature sensor functionality
 * Add alarm functionality
 * ...
