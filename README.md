@@ -87,7 +87,7 @@ Set the time and date.
 
 #####```int getYear();```
 
-Set different time values seperately.
+Returns the different time values.
 
 #####```unsigned long readIR();```
 
