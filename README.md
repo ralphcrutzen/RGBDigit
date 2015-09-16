@@ -71,6 +71,14 @@ Set the color of all digits to color rgb(*red*,*green*,*blue*).
 
 Set the color of *digit* to color rgb(*red*,*green*,*blue*).
 
+#####```void setBrightness(byte brightness);```
+
+Set the *brightness* of the strip to a value from 0 to 255.
+
+#####```byte getBrightness();```
+
+Returns the brightness of the strip.
+
 #####```void setTimeDate(int hour, int minute, int second, int day, int month, int year);```
 
 Set the time and date.
@@ -105,5 +113,4 @@ Returns one of the following (static) values if the button of the remote is pres
 
 ## To do:
 * Add temperature sensor functionality
-* Add alarm functionality
 * ...
