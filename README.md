@@ -31,6 +31,14 @@ The *segment* parameters can be values from 0 to 7, every number corresponding t
     4     2
        3      7
 
+#####```RGBDigit(int nDigits, int pin = 12);```
+
+The consttructor of the RGBDigit class. *nDigits* is the number of digits. *pin* is the pin number, which defaults to pin 12 if this parameter is omitted.
+
+#####```void begin();```
+
+Initialises the RGBDigit.
+
 #####```void clearAll();```
 
 Clear all digits.
