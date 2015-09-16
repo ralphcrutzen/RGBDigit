@@ -31,6 +31,7 @@ RGBDigit rgbDigit(nDigits);       // uses default pin 12
 //RGBDigit rgbDigit(nDigits, 6);  // uses another pin; 6 in this example
 
 void setup() {
+  rgbDigit.begin();
   rgbDigit.clearAll();
   // set the time of the RTC (h, m, s, d, m, y)
   // rgbDigit.setTimeDate(15, 3, 0, 11, 9, 15);
