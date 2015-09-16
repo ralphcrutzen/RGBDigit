@@ -1,27 +1,34 @@
-/*
-  RGBDigit.cpp - Library for controlling an RGBDigit from http://rgbdigit.com/
-  Created by Ralph Crützen, September 2015.
-  Released into the public domain.
+/*  RGBDigit color example sketch
+    Copyright (C) 2015 Ralph Crützen
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #include "RGBDigit.h"
 
-RGBDigit::RGBDigit(int nDigits)
-  : Adafruit_NeoPixel(8 * nDigits, 12, NEO_GRB + NEO_KHZ800),
-  _nDigits(nDigits), _irRecv(10)
+RGBDigit::RGBDigit(int nDigits, int pin)
+  : Adafruit_NeoPixel(8 * nDigits, pin, NEO_GRB + NEO_KHZ800),
+  _brightness(32), _nDigits(nDigits), _irRecv(10)
 {
   _rArray = new byte[8 * nDigits]; // to store red values of each LED
   _gArray = new byte[8 * nDigits]; // to store green values of each LED
   _bArray = new byte[8 * nDigits]; // to store blue values of each LED
-
-  //_irRecv = new IRrecv(10);
-  //_irResults = new decode_results;
 }
 
 RGBDigit::~RGBDigit()
 {
-  //delete _irRecv;
-  //delete _irResults;
   delete [] _rArray;
   delete [] _gArray;
   delete [] _bArray;
@@ -39,6 +46,7 @@ void RGBDigit::begin()
 
   // init led strip
   Adafruit_NeoPixel::begin();
+  Adafruit_NeoPixel::setBrightness(_brightness);
 }
 
 void RGBDigit::clearAll()
@@ -145,6 +153,15 @@ void RGBDigit::setColor(int digit, byte red, byte green, byte blue)
     }
   }
   show();
+}
+
+void RGBDigit::setBrightness(byte brightness){
+  _brightness = brightness;
+  Adafruit_NeoPixel::setBrightness(brightness);
+}
+
+byte RGBDigit::getBrightness() {
+  return _brightness;
 }
 
 void RGBDigit::setTimeDate(int hour, int minute, int second, int day, int month, int year)

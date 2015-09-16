@@ -1,7 +1,19 @@
-/*
-  RGBDigit.h - Library for controlling an RGBDigit from http://rgbdigit.com/
-  Created by Ralph Crützen, September 2015.
-  Released into the public domain.
+/*  RGBDigit color example sketch
+    Copyright (C) 2015 Ralph Crützen
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #ifndef RGBDigit_h
@@ -16,7 +28,7 @@
 
 class RGBDigit : public Adafruit_NeoPixel {
   public:
-    RGBDigit(int nDigits);
+    RGBDigit(int nDigits, int pin = 12);
     ~RGBDigit();
     void begin();
     void clearAll();
@@ -29,6 +41,8 @@ class RGBDigit : public Adafruit_NeoPixel {
     bool isSegmentOn(int digit, byte segment);
     void setColor(byte red, byte green, byte blue);
     void setColor(int digit, byte red, byte green, byte blue);
+    void setBrightness(byte brightness);
+    byte getBrightness();
     void setTimeDate(int hour, int minute, int second, int day, int month, int year);
     int getHour();
     int getMinute();
@@ -37,7 +51,6 @@ class RGBDigit : public Adafruit_NeoPixel {
     int getMonth();
     int getYear();
     unsigned long readIR();
-    void resumeIR();
     static const unsigned long irPower = 0x10EFD827;
     static const unsigned long irA = 0x10EFF807;
     static const unsigned long irB = 0x10EF7887;
@@ -50,6 +63,7 @@ class RGBDigit : public Adafruit_NeoPixel {
     static const unsigned long irNone = 0;
     unsigned long button = 0;
   private:
+    byte _brightness;
     int _nDigits;
     IRrecv _irRecv;
     decode_results _irResults;
