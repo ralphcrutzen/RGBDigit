@@ -1,3 +1,21 @@
+/*  RGBDigit infrared remote example sketch
+    Copyright (C) 2015 Ralph Crützen
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
@@ -8,7 +26,9 @@
 
 // If necessary, change the number of digits in the next line
 #define nDigits 4
-RGBDigit rgbDigit(nDigits);
+RGBDigit rgbDigit(nDigits);       // uses default pin 12
+//RGBDigit rgbDigit(nDigits, 6);  // uses another pin; 6 in this example
+
 unsigned long button;
 
 void setup() {
@@ -33,6 +53,11 @@ void setup() {
 
 void loop() {
   button = rgbDigit.readIR();
+  if (button != RGBDigit::irNone) {
+    byte b = rgbDigit.getBrightness();
+    b = (b + 16) % 256;
+    rgbDigit.setBrightness(b);
+  }
   switch (button) {
     case RGBDigit::irPower:
       Serial.println("Power");
