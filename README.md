@@ -5,8 +5,6 @@ The purpose of this library is to provide a *simple* and *intuitive* interface t
 
 Note that it is a work in progress. Not all functionality (like reading temerature values) is covered yet.
 
-Because I only own a RGBDigit shield without a temparature sensor, I'm not planning to add temperature functions to the library (for now...)
-
 ## Installation instructions
 * Download the zip file
 * Extract it to your Arduino library folder
