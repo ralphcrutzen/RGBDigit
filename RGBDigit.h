@@ -1,4 +1,4 @@
-/*  RGBDigit color example sketch
+/*  RGBDigit class header file
     Copyright (C) 2015 Ralph Crützen
 
     This program is free software; you can redistribute it and/or modify
