@@ -43,9 +43,13 @@ Initialises the RGBDigit.
 
 Clear all digits.
 
-#####```void setDigit(int character, int digit, byte red, byte green, byte blue);```
+#####```void setDigit(int number, int digit, byte red, byte green, byte blue);```
 
-Show *character* on *digit* in color rgb(*red*,*green*,*blue*).
+Show *number* (from 0 - 9) on *digit* in color rgb(*red*,*green*,*blue*).
+
+#####```void setDigit(char character, int digit, byte red, byte green, byte blue);```
+
+Show *characterr* on *digit* in color rgb(*red*,*green*,*blue*). Valid characters are letters (case insensitive) from *a* to *z*, the dot (*.*), dash (*-*), underscore (*_*), brackets ( *( ) { } [ ]* ) and space .
 
 #####```void clearDigit(int digit);```
 
