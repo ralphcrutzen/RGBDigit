@@ -60,10 +60,11 @@ void RGBDigit::clearAll()
   show();
 }
 
-void RGBDigit::setDigit(int character, int digit, byte red, byte green, byte blue)
+void RGBDigit::setDigit(int number, int digit, byte red, byte green, byte blue)
 {
+  if (number < 0 || number > 9) return;
   for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
-    if (_characterArray[segm%8][character]) {
+    if (_numberArray[segm % 8][number]) {
       _rArray[segm] = red;
       _gArray[segm] = green;
       _bArray[segm] = blue;
@@ -76,6 +77,84 @@ void RGBDigit::setDigit(int character, int digit, byte red, byte green, byte blu
     setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
   }
   show();
+}
+
+
+void RGBDigit::setDigit(char character, int digit, byte red, byte green, byte blue)
+{
+  // First, handle special characters
+  if (character == ' ') {
+    clearDigit(digit);
+    return;
+  }
+  if (character == '.') {
+    showSpecialCharacter(0, digit, red, green, blue);
+    return;
+  }
+  if (character == '-') {
+    showSpecialCharacter(1, digit, red, green, blue);
+    return;
+  }
+  if (character == '_') {
+    showSpecialCharacter(2, digit, red, green, blue);
+    return;
+  }
+  if (character == '(' || character == '[' || character == '{') {
+    showSpecialCharacter(3, digit, red, green, blue);
+    return;
+  }
+  if (character == ')' || character == ']' || character == '}') {
+    showSpecialCharacter(4, digit, red, green, blue);
+    return;
+  }
+
+  // Numbers
+  if (character >= 48 && character <= 57) {
+    int number = character - 48;
+    setDigit(number, digit, red, green, blue);
+    show();
+    return;
+  }
+
+  // Check if character isn't letter from alphabet
+  if (character < 'A' || (character > 'Z' && character < 'a') || character > 'z')
+    return;
+
+  // Decapitalize
+  if (character <= 'Z')
+    character = character + 32;
+
+  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
+    if (_characterArray[segm % 8][character - 97]) {
+      _rArray[segm] = red;
+      _gArray[segm] = green;
+      _bArray[segm] = blue;
+    }
+    else {
+      _rArray[segm] = 0;
+      _gArray[segm] = 0;
+      _bArray[segm] = 0;
+    }
+    setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
+    }
+    show();
+}
+
+void RGBDigit::showSpecialCharacter(byte index, int digit, byte red, byte green, byte blue) {
+  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
+    if (_symbolArray[segm % 8][index]) {
+      _rArray[segm] = red;
+      _gArray[segm] = green;
+      _bArray[segm] = blue;
+    }
+    else {
+      _rArray[segm] = 0;
+      _gArray[segm] = 0;
+      _bArray[segm] = 0;
+    }
+    setPixelColor(segm, _rArray[segm], _gArray[segm],  _bArray[segm]);
+    show();
+  }
 }
 
 void RGBDigit::clearDigit(int digit)
