@@ -107,6 +107,10 @@ void RGBDigit::setDigit(char character, int digit, byte red, byte green, byte bl
     showSpecialCharacter(4, digit, red, green, blue);
     return;
   }
+  if (character == '*') {
+    showSpecialCharacter(5, digit, red, green, blue);
+    return;
+  }
 
   // Numbers
   if (character >= 48 && character <= 57) {
@@ -288,4 +292,17 @@ unsigned long RGBDigit::readIR()
   }
   else
     return irNone;
+}
+
+
+float RGBDigit::readTemp()
+{
+  char buffer[2];
+  Wire.requestFrom(0x48, 2);
+  if (Wire.available()) {
+    for (int i = 0; i < 2; i++) {
+      buffer[i] = Wire.read();
+    }
+  }
+  return 0.0625*(((buffer[0] << 8) + buffer[1]) >> 3);
 }

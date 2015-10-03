@@ -52,6 +52,7 @@ class RGBDigit : public Adafruit_NeoPixel {
     int getMonth();
     int getYear();
     unsigned long readIR();
+    float readTemp();
     static const unsigned long irPower = 0x10EFD827;
     static const unsigned long irA = 0x10EFF807;
     static const unsigned long irB = 0x10EF7887;
@@ -90,17 +91,17 @@ class RGBDigit : public Adafruit_NeoPixel {
       {1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0}
     };
-    const bool _symbolArray [8][5] = {
-    // 0  1  2  3  4
-    // .  -  _  (  )
-      {0, 0, 0, 1, 1},
-      {0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 1},
-      {0, 0, 1, 1, 1},
-      {0, 0, 0, 1, 0},
-      {0, 0, 0, 1, 0},
-      {0, 1, 0, 0, 0},
-      {1, 0, 0, 0, 0}
+    const bool _symbolArray [8][6] = {
+    // 0  1  2  3  4  5
+    // .  -  _  (  )  *(deg)
+      {0, 0, 0, 1, 1, 1},
+      {0, 0, 0, 0, 1, 1},
+      {0, 0, 0, 0, 1, 0},
+      {0, 0, 1, 1, 1, 0},
+      {0, 0, 0, 1, 0, 0},
+      {0, 0, 0, 1, 0, 1},
+      {0, 1, 0, 0, 0, 1},
+      {1, 0, 0, 0, 0, 0}
     };
     byte* _rArray;
     byte* _gArray;
