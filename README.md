@@ -16,7 +16,7 @@ You also have to download and install the following libraries:
 * DS3232RTC http://github.com/JChristensen/DS3232RTC
 * Time http://www.arduino.cc/playground/Code/Time
 
-Use the sketch in the Examples directory to test the library!
+Use the sketches in the Examples directory to test the library!
 
 ## Class methods
 Note that for all *digit* parameters, the first digit has index 0, the second digit has index 1, etc.
