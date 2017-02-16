@@ -1,3 +1,5 @@
+This project is licenses under Creatice Commons Attribution-ShareAlike 4.0 International (https://creativecommons.org/licenses/by-sa/4.0/)
+
 # RGBDigit
 Arduino library for http://rgbdigit.com/
 
