@@ -19,9 +19,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
-#include <IRremote.h> //http://z3t0.github.io/Arduino-IRremote/
-#include <DS3232RTC.h> //http://github.com/JChristensen/DS3232RTC
-#include <Time.h> //https://github.com/PaulStoffregen/Time
+#include <TimeLib.h> //https://github.com/PaulStoffregen/Time
 
 #include <RGBDigit.h>
 
@@ -31,10 +29,9 @@ RGBDigit rgbDigit(nDigits);       // uses default pin 12
 //RGBDigit rgbDigit(nDigits, 6);  // uses another pin; 6 in this example
 
 void setup() {
+  setTime(15, 3, 0, 11, 9, 15);
   rgbDigit.begin();
   rgbDigit.clearAll();
-  // set the time of the RTC (h, m, s, d, m, y)
-  // rgbDigit.setTimeDate(15, 3, 0, 11, 9, 15);
 }
 
 void loop() {
@@ -43,12 +40,12 @@ void loop() {
 }
 
 void showTimeDate() {
-  int h = rgbDigit.getHour();
+  int h = hour();
   int h1 = h/10;                      // left digit
   int h2 = h - (h/10)*10;             // right digit
   rgbDigit.setDigit(h1, 0, 64, 0, 0); // show on digit 0 (=first). Color is rgb(64,0,0).
   rgbDigit.setDigit(h2, 1, 64, 0, 0);
-  int m = rgbDigit.getMinute();
+  int m = minute();
   int m1 = m/10;
   int m2 = m - (m/10)*10;
   rgbDigit.setDigit(m1, 2, 0, 0, 64);
@@ -57,12 +54,12 @@ void showTimeDate() {
   rgbDigit.clearDot(3);               // clear dot on digit 3 (=fourth)
   delay(5000);
 
-  int d = rgbDigit.getDay();
+  int d = day();
   int d1 = d/10;
   int d2 = d - (d/10)*10;
   rgbDigit.setDigit(d1, 0, 64, 64, 0);
   rgbDigit.setDigit(d2, 1, 64, 64, 0);
-  m = rgbDigit.getMonth();
+  m = month();
   m1 = m/10;
   m2 = m - (m/10)*10;
   rgbDigit.setDigit(m1, 2, 0, 64, 64);
@@ -71,7 +68,7 @@ void showTimeDate() {
   rgbDigit.showDot(3, 64, 64, 64);
   delay(2500);
 
-  int y = rgbDigit.getYear() - 2000;
+  int y = year() - 2000;
   int y1 = y/10;
   int y2 = y - (y/10)*10;
   rgbDigit.setDigit(2, 0, 1, 1, 1);
