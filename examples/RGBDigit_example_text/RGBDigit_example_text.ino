@@ -18,7 +18,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
+#include <Adafruit_NeoPixel.h> // https://github.com/adafruit/Adafruit_NeoPixel
 
 #include <RGBDigit.h>
 

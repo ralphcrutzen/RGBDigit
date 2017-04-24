@@ -18,8 +18,8 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
-#include <TimeLib.h> //https://github.com/PaulStoffregen/Time
+#include <Adafruit_NeoPixel.h> // https://github.com/adafruit/Adafruit_NeoPixel
+#include <TimeLib.h> // https://github.com/PaulStoffregen/Time
 
 #include <RGBDigit.h>
 
