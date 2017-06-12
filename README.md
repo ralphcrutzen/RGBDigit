@@ -14,9 +14,7 @@ Note that it is a work in progress. Not all functionality (like reading temeratu
  
 You also have to download and install the following libraries:
 * Adafruit NeoPixel https://github.com/adafruit/Adafruit_NeoPixel
-* IRremote http://z3t0.github.io/Arduino-IRremote/
-* DS3232RTC http://github.com/JChristensen/DS3232RTC
-* Time http://www.arduino.cc/playground/Code/Time
+* Time https://github.com/PaulStoffregen/Time (for the `RGBDigit_example_display.ino` example)
 
 Use the sketches in the Examples directory to test the library!
 
@@ -90,39 +88,3 @@ Set the *brightness* of the strip to a value from 0 to 255.
 #####```byte getBrightness();```
 
 Returns the brightness of the strip.
-
-#####```void setTimeDate(int hour, int minute, int second, int day, int month, int year);```
-
-Set the time and date.
-
-#####```int getHour();```
-
-#####```int getMinute();```
-
-#####```int getSecond();```
-
-#####```int getDay();```
-
-#####```int getMonth();```
-
-#####```int getYear();```
-
-Returns the different time values.
-
-#####```unsigned long readIR();```
-
-Returns one of the following (static) values if the button of the remote is pressed, or ```RGBDigit::irNone``` if no button is pressed.
-
-    RGBDigit::irPower
-    RGBDigit::irA
-    RGBDigit::irB
-    RGBDigit::irC
-    RGBDigit::irUp
-    RGBDigit::irDown
-    RGBDigit::irLeft
-    RGBDigit::irRight
-    RGBDigit::irSelect
-
-#####```float readTemp();```
-
-Returns the temperature in degrees Celcius.

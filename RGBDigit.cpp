@@ -20,7 +20,7 @@
 
 RGBDigit::RGBDigit(int nDigits, int pin)
   : Adafruit_NeoPixel(8 * nDigits, pin, NEO_GRB + NEO_KHZ800),
-  _brightness(32), _nDigits(nDigits), _irRecv(10)
+  _brightness(32), _nDigits(nDigits)
 {
   _rArray = new byte[8 * nDigits]; // to store red values of each LED
   _gArray = new byte[8 * nDigits]; // to store green values of each LED
@@ -37,12 +37,6 @@ RGBDigit::~RGBDigit()
 void RGBDigit::begin()
 {
   Wire.begin();
-
-  // init IR reveiver
-  _irRecv.enableIRIn();
-
-  //init RTC
-  setSyncProvider(RTC.get);
 
   // init led strip
   Adafruit_NeoPixel::begin();
@@ -247,62 +241,3 @@ byte RGBDigit::getBrightness() {
   return _brightness;
 }
 
-void RGBDigit::setTimeDate(int hour, int minute, int second, int day, int month, int year)
-{
-  setTime(hour, minute, second, day, month, year);
-  RTC.set(now());
-}
-
-int RGBDigit::getHour()
-{
-  return hour();
-}
-
-int RGBDigit::getMinute()
-{
-  return minute();
-}
-
-int RGBDigit::getSecond()
-{
-  return second();
-}
-
-int RGBDigit::getDay()
-{
-  return day();
-}
-
-int RGBDigit::getMonth()
-{
-  return month();
-}
-
-int RGBDigit::getYear()
-{
-  return year();
-}
-
-unsigned long RGBDigit::readIR()
-{
-  if (_irRecv.decode(&_irResults)) {
-    delay(250);
-    _irRecv.resume();
-    return _irResults.value;
-  }
-  else
-    return irNone;
-}
-
-
-float RGBDigit::readTemp()
-{
-  char buffer[2];
-  Wire.requestFrom(0x48, 2);
-  if (Wire.available()) {
-    for (int i = 0; i < 2; i++) {
-      buffer[i] = Wire.read();
-    }
-  }
-  return 0.0625*(((buffer[0] << 8) + buffer[1]) >> 3);
-}

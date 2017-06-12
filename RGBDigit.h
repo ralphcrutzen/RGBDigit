@@ -22,9 +22,6 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
-#include <IRremote.h> //http://z3t0.github.io/Arduino-IRremote/
-#include <DS3232RTC.h> //http://github.com/JChristensen/DS3232RTC
-#include <Time.h> //https://github.com/PaulStoffregen/Time
 
 class RGBDigit : public Adafruit_NeoPixel {
   public:
@@ -44,31 +41,9 @@ class RGBDigit : public Adafruit_NeoPixel {
     void setColor(int digit, byte red, byte green, byte blue);
     void setBrightness(byte brightness);
     byte getBrightness();
-    void setTimeDate(int hour, int minute, int second, int day, int month, int year);
-    int getHour();
-    int getMinute();
-    int getSecond();
-    int getDay();
-    int getMonth();
-    int getYear();
-    unsigned long readIR();
-    float readTemp();
-    static const unsigned long irPower = 0x10EFD827;
-    static const unsigned long irA = 0x10EFF807;
-    static const unsigned long irB = 0x10EF7887;
-    static const unsigned long irC = 0x10EF58A7;
-    static const unsigned long irUp = 0x10EFA05F;
-    static const unsigned long irDown = 0x10EF00FF;
-    static const unsigned long irLeft = 0x10EF10EF;
-    static const unsigned long irRight = 0x10EF807F;
-    static const unsigned long irSelect = 0x10EF20DF;
-    static const unsigned long irNone = 0;
-    unsigned long button = 0;
   private:
     byte _brightness;
     int _nDigits;
-    IRrecv _irRecv;
-    decode_results _irResults;
     const bool _numberArray [8][10] = {
     // 0  1  2  3  4  5  6  7  8  9
       {1, 0, 1, 1, 0, 1, 1, 1, 1, 1}, //a             a

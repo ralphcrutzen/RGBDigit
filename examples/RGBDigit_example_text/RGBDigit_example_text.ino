@@ -18,10 +18,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
-#include <IRremote.h> //http://z3t0.github.io/Arduino-IRremote/
-#include <DS3232RTC.h> //http://github.com/JChristensen/DS3232RTC
-#include <Time.h> //https://github.com/PaulStoffregen/Time
+#include <Adafruit_NeoPixel.h> // https://github.com/adafruit/Adafruit_NeoPixel
 
 #include <RGBDigit.h>
 
