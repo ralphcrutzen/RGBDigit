@@ -18,6 +18,23 @@ You also have to download and install the following libraries:
 
 Use the sketches in the Examples directory to test the library!
 
+## Segments per digit and choice of NeoPixel type
+You can ignore this section if you are working with the standard RGBDigit module.
+
+If you have made your own RGBDigit then you can use this section to set the library up for your digit.
+
+####Segments per digit
+The standard 7-segment display has 8 segments (7 for the digit and a decimal point).  If your display has only the 7 (ie no decimal point) then add
+
+`#define RGBDIGIT_SEGS_PER_DIGIT 7`
+
+to your sketch *before* calling the library.
+
+####Choice of NeoPixel type
+The standard RGBDigit module uses the type `` but if you've made your own this might be different.  This may cause incorrect colours to display for example.  You can set the type of NeoPixel to use in the constructor:
+
+`RGBDigit rgbDigit(nDigits, 6);` in the examples becomes `RGBDigit rgbDigit(nDigits, 6, NEO_GRB + NEO_KHZ800);` (simply use the appropriate definition from the documentation of the Arduino_NeoPixel library.  If the option is omitted it defaults to `NEO_GRB + NEO_KHZ800`.
+
 ## Class methods
 Note that for all *digit* parameters, the first digit has index 0, the second digit has index 1, etc.
 
