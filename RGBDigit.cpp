@@ -18,13 +18,13 @@
 
 #include "RGBDigit.h"
 
-RGBDigit::RGBDigit(int nDigits, int pin)
-  : Adafruit_NeoPixel(8 * nDigits, pin, NEO_GRB + NEO_KHZ800),
+RGBDigit::RGBDigit(int nDigits, int pin, neoPixelType t)
+  : Adafruit_NeoPixel(RGBDIGIT_SEGS_PER_DIGIT * nDigits, pin, t),
   _brightness(32), _nDigits(nDigits)
 {
-  _rArray = new byte[8 * nDigits]; // to store red values of each LED
-  _gArray = new byte[8 * nDigits]; // to store green values of each LED
-  _bArray = new byte[8 * nDigits]; // to store blue values of each LED
+  _rArray = new byte[RGBDIGIT_SEGS_PER_DIGIT * nDigits]; // to store red values of each LED
+  _gArray = new byte[RGBDIGIT_SEGS_PER_DIGIT * nDigits]; // to store green values of each LED
+  _bArray = new byte[RGBDIGIT_SEGS_PER_DIGIT * nDigits]; // to store blue values of each LED
 }
 
 RGBDigit::~RGBDigit()
@@ -45,7 +45,7 @@ void RGBDigit::begin()
 
 void RGBDigit::clearAll()
 {
-  for (int segm = 0; segm < 8*_nDigits; segm++) {
+  for (int segm = 0; segm < RGBDIGIT_SEGS_PER_DIGIT*_nDigits; segm++) {
     _rArray[segm] = 0;
     _gArray[segm] = 0;
     _bArray[segm] = 0;
@@ -57,8 +57,8 @@ void RGBDigit::clearAll()
 void RGBDigit::setDigit(int number, int digit, byte red, byte green, byte blue)
 {
   if (number < 0 || number > 9) return;
-  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
-    if (_numberArray[segm % 8][number]) {
+  for (int segm = RGBDIGIT_SEGS_PER_DIGIT*digit; segm < RGBDIGIT_SEGS_PER_DIGIT*digit + RGBDIGIT_SEGS_PER_DIGIT; segm++) {
+    if (_numberArray[segm % RGBDIGIT_SEGS_PER_DIGIT][number]) {
       _rArray[segm] = red;
       _gArray[segm] = green;
       _bArray[segm] = blue;
@@ -122,8 +122,8 @@ void RGBDigit::setDigit(char character, int digit, byte red, byte green, byte bl
   if (character <= 'Z')
     character = character + 32;
 
-  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
-    if (_characterArray[segm % 8][character - 97]) {
+  for (int segm = RGBDIGIT_SEGS_PER_DIGIT*digit; segm < RGBDIGIT_SEGS_PER_DIGIT*digit + RGBDIGIT_SEGS_PER_DIGIT; segm++) {
+    if (_characterArray[segm % RGBDIGIT_SEGS_PER_DIGIT][character - 97]) {
       _rArray[segm] = red;
       _gArray[segm] = green;
       _bArray[segm] = blue;
@@ -139,8 +139,8 @@ void RGBDigit::setDigit(char character, int digit, byte red, byte green, byte bl
 }
 
 void RGBDigit::showSpecialCharacter(byte index, int digit, byte red, byte green, byte blue) {
-  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
-    if (_symbolArray[segm % 8][index]) {
+  for (int segm = RGBDIGIT_SEGS_PER_DIGIT*digit; segm < RGBDIGIT_SEGS_PER_DIGIT*digit + RGBDIGIT_SEGS_PER_DIGIT; segm++) {
+    if (_symbolArray[segm % RGBDIGIT_SEGS_PER_DIGIT][index]) {
       _rArray[segm] = red;
       _gArray[segm] = green;
       _bArray[segm] = blue;
@@ -157,7 +157,7 @@ void RGBDigit::showSpecialCharacter(byte index, int digit, byte red, byte green,
 
 void RGBDigit::clearDigit(int digit)
 {
-  for (int segm = 8*digit; segm < 8*digit + 8; segm++) {
+  for (int segm = RGBDIGIT_SEGS_PER_DIGIT*digit; segm < RGBDIGIT_SEGS_PER_DIGIT*digit + RGBDIGIT_SEGS_PER_DIGIT; segm++) {
     _rArray[segm] = 0;
     _gArray[segm] = 0;
     _bArray[segm] = 0;
@@ -168,19 +168,25 @@ void RGBDigit::clearDigit(int digit)
 
 void RGBDigit::showDot(int digit, byte red, byte green, byte blue)
 {
-  setPixelColor(8*digit + 7, red, green, blue);
-  show();
+  //This only makes sense if there is a decimal point, wrapped in a conditional so does nothing if there is no dp.
+  if(RGBDIGIT_SEGS_PER_DIGIT>7) {
+    setPixelColor(RGBDIGIT_SEGS_PER_DIGIT*digit + (RGBDIGIT_SEGS_PER_DIGIT-1), red, green, blue);
+    show();
+  }
 }
 
 void RGBDigit::clearDot(int digit)
 {
-  setPixelColor(8*digit + 7, 0, 0, 0);
-  show();
+  //This only makes sense if there is a decimal point, wrapped in a conditional so does nothing if there is no dp.
+  if(RGBDIGIT_SEGS_PER_DIGIT>7) {
+    setPixelColor(RGBDIGIT_SEGS_PER_DIGIT*digit + (RGBDIGIT_SEGS_PER_DIGIT-1), 0, 0, 0);
+    show();
+  }
 }
 
 void RGBDigit::segmentOn(int digit, byte segment, byte red, byte green, byte blue)
 {
-  int segm = 8*digit + segment;
+  int segm = RGBDIGIT_SEGS_PER_DIGIT*digit + segment;
   _rArray[segm] = red;
   _gArray[segm] = green;
   _bArray[segm] = blue;
@@ -190,7 +196,7 @@ void RGBDigit::segmentOn(int digit, byte segment, byte red, byte green, byte blu
 
 void RGBDigit::segmentOff(int digit, byte segment)
 {
-  int segm = 8*digit + segment;
+  int segm = RGBDIGIT_SEGS_PER_DIGIT*digit + segment;
   _rArray[segm] = 0;
   _gArray[segm] = 0;
   _bArray[segm] = 0;
@@ -200,14 +206,14 @@ void RGBDigit::segmentOff(int digit, byte segment)
 
 bool RGBDigit::isSegmentOn(int digit, byte segment)
 {
-  int segm = 8*digit + segment;
+  int segm = RGBDIGIT_SEGS_PER_DIGIT*digit + segment;
   return (_rArray[segm] > 0) || (_gArray[segm] > 0) || (_bArray[segm] > 0);
 }
 
 void RGBDigit::setColor(byte red, byte green, byte blue)
 {
-  for (int segm = 0; segm < 8*_nDigits; segm++) {
-    if ((segm - 7) % 8 != 0) { // exclude dots
+  for (int segm = 0; segm < RGBDIGIT_SEGS_PER_DIGIT*_nDigits; segm++) {
+    if ((segm - (RGBDIGIT_SEGS_PER_DIGIT-1)) % RGBDIGIT_SEGS_PER_DIGIT != 0) { // exclude dots
       if ((_rArray[segm] != 0) || (_gArray[segm] != 0) || (_bArray[segm] != 0)) {
         _rArray[segm] = red;
         _gArray[segm] = green;
@@ -221,7 +227,7 @@ void RGBDigit::setColor(byte red, byte green, byte blue)
 
 void RGBDigit::setColor(int digit, byte red, byte green, byte blue)
 {
-  for (int segm = 8*digit; segm < 8*digit + 7; segm++) {
+  for (int segm = RGBDIGIT_SEGS_PER_DIGIT*digit; segm < RGBDIGIT_SEGS_PER_DIGIT*digit + (RGBDIGIT_SEGS_PER_DIGIT-1); segm++) {
     if ((_rArray[segm] != 0) || (_gArray[segm] != 0) || (_bArray[segm] != 0)) {
       _rArray[segm] = red;
       _gArray[segm] = green;

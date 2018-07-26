@@ -19,13 +19,17 @@
 #ifndef RGBDigit_h
 #define RGBDigit_h
 
+#ifndef RGBDIGIT_SEGS_PER_DIGIT
+    #define RGBDIGIT_SEGS_PER_DIGIT 8   //This can be 7 or 8 depending if the digit has a decimal point. This statement sets the default value of 8.
+#endif
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h> //https://github.com/adafruit/Adafruit_NeoPixel
 
 class RGBDigit : public Adafruit_NeoPixel {
   public:
-    RGBDigit(int nDigits, int pin = 12);
+    RGBDigit(int nDigits, int pin = 12, neoPixelType t=NEO_GRB + NEO_KHZ800);
     ~RGBDigit();
     void begin();
     void clearAll();
